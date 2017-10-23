@@ -12,23 +12,25 @@ def activation(input):
     return input > 0
 
 allClasified = False
-iterations = 1
+iterations = 20000
 w = numpy.array([random.random() for i in range(0,784)])
-b = - random.random() * 784
+w1 = numpy.array([i for i in range(1,3)])
+w2 = numpy.array([i for i in range(3,5)])
+print(w1 + w2)
+b = -5000
 learn_rate = 0.01
-while iterations > 0:
-    # allClasified = True
+while iterations > 0 and not allClasified:
+    allClasified = True
     for i in range(0,len(train_set[0])):
         x = train_set[0][i]
         t = train_set[1][i]
         target = t == 0
-        z = w.dot(x)
+        z = w.dot(x) + b
         output = activation(z)
-
         w = w + (target - output) * x * learn_rate
         b = b + (target - output) * learn_rate
-            # if output != t:
-                # allClasified = False
+        if output != target:
+            allClasified = False
 
     iterations-=1
 
